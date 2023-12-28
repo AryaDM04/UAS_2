@@ -3,10 +3,12 @@ include("koneksi.php");
 
 class User
 {
+    //ini juga enkapsulasi
     protected $password;
+    // kalau ini kita enkapsulasi passwordnya biar yang diluar dari kelas user tidak bisa semenah menah untuk mengakses password ini 
     public $username;
     public $fullname;
-    public function __construct($username,$password, $fullname)
+    public function __construct($username, $password, $fullname)
     {
         $this->username = $username;
         $this->password = $password;
@@ -16,8 +18,9 @@ class User
 
 class UserManager extends User
 {
-    // encapsulasi
+    // enkapsulasi
     protected $conn;
+    // disini yang kita enkap itu $conn yang dimana berarti koneksinya ke database itu kita proteksi/lindungi jadi yang berada diluar kelas user managerataupun turunannya itu tidak bisa dy akses semenah-menah jadi khusus saja yang berada dalam kelas user manager dan anakan/inehritnya yang bisa akses
     public function __construct($conn, $password, $username, $fullname)
     {
         parent::__construct($password, $username, $fullname);
@@ -32,7 +35,6 @@ class UserManager extends User
     }
 }
 
-// extends itu inhweitance
 class Login extends User
 {
     protected $conn;
@@ -44,7 +46,7 @@ class Login extends User
 
     public function loginUser()
     {
-        $query = mysqli_query($this->conn,"SELECT * FROM tb_user WHERE username = '$this->username'");
+        $query = mysqli_query($this->conn, "SELECT * FROM tb_user WHERE username = '$this->username'");
         $userData = mysqli_fetch_assoc($query);
         if ($userData) {
             if (password_verify($this->password, $userData["password"])) {

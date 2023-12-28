@@ -4,6 +4,8 @@ include "koneksi.php";
 class Ship
 {
     public $conn;
+    // enkap juga yang dimana 
+    
     public $nama_kapal;
     public $muatan;
     public $tujuan;
